@@ -1,0 +1,832 @@
+openapi: 3.0.3
+info:
+  title: Screen API
+  version: 1.0.0
+  description: screen builder api
+paths:
+  /screenmgmt/component/:
+    get:
+      operationId: list_component
+      description: This enables the users in listing all components
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedComponentList'
+          description: ''
+    post:
+      operationId: create_component
+      description: This enables the users in creating the components
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Component'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+  /screenmgmt/component/{id}/:
+    get:
+      operationId: retrieve_component
+      description: This enables the users in retrieving a particular component
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this component.
+        required: true
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+    put:
+      operationId: update_component
+      description: This enables the users in updating component
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this component.
+        required: true
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Component'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+    patch:
+      operationId: partial_update_component
+      description: This enables the users in partially updating component
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this component.
+        required: true
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedComponent'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedComponent'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+    delete:
+      operationId: delete_component
+      description: This enables the users in deleting the component
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this component.
+        required: true
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /screenmgmt/component/fetch/:
+    get:
+      operationId: fetch_component
+      description: This enables the user to fetch component data with group and component
+        name
+      tags:
+      - public
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+  /screenmgmt/component/publish/:
+    post:
+      operationId: publish_to_github
+      description: This enables the user to publish his committed changes to github
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Component'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+          description: ''
+  /screenmgmt/get-screen-layout/:
+    get:
+      operationId: get_screen_layout
+      description: This enables frontend to check their screen layout.
+      tags:
+      - public
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /screenmgmt/group/:
+    get:
+      operationId: list_group
+      description: This enables the users in listing all groups
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGroupList'
+          description: ''
+    post:
+      operationId: create_group
+      description: This enables the users in creating the groups
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+  /screenmgmt/group/{id}/:
+    get:
+      operationId: retrieve_group
+      description: This enables the users in retrieving a particular group
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    put:
+      operationId: update_group
+      description: This enables the users in updating group
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    patch:
+      operationId: partial_update_group
+      description: This enables the users in partially updating group
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGroup'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGroup'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    delete:
+      operationId: delete_group
+      description: This enables the users in deleting the group
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /screenmgmt/screen/:
+    get:
+      operationId: list_screen
+      description: This enables the users in listing all screens
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedScreenList'
+          description: ''
+    post:
+      operationId: create_screen
+      description: This enables the users in creating the screens
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Screen'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Screen'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+          description: ''
+  /screenmgmt/screen/{id}/:
+    get:
+      operationId: retrieve_screen
+      description: This enables the users in retrieving a particular screen
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this screen.
+        required: true
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+          description: ''
+    put:
+      operationId: update_screen
+      description: This enables the users in updating screen
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this screen.
+        required: true
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Screen'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Screen'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+          description: ''
+    patch:
+      operationId: partial_update_screen
+      description: This enables the users in partially updating screen
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this screen.
+        required: true
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedScreen'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedScreen'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+          description: ''
+    delete:
+      operationId: delete_screen
+      description: This enables the users in deleting the screen
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this screen.
+        required: true
+      tags:
+      - authz
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /screenmgmt/screen/fetch/:
+    get:
+      operationId: fetch_screen
+      description: This enables the user to fetch screen data with group and screen
+        name
+      tags:
+      - public
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+          description: ''
+  /screenmgmt/screen/publish/:
+    post:
+      operationId: publish_to_github_2
+      description: This enables the user to publish his committed changes to github
+      tags:
+      - authz
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Screen'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Screen'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screen'
+          description: ''
+  /screenmgmt/vcs/bitbucket/{tenant}/:
+    post:
+      operationId: vcs_pull_bitbucket
+      description: This api is responsible to load client metadata from git to bot
+      parameters:
+      - in: path
+        name: tenant
+        schema:
+          type: string
+        required: true
+      tags:
+      - public
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VCSWebhook'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VCSWebhook'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VCSWebhook'
+          description: ''
+  /screenmgmt/vcs/generic/{tenant}/:
+    post:
+      operationId: vcs_pull_generic
+      description: This api is responsible to load client metadata from git to svc
+      parameters:
+      - in: path
+        name: tenant
+        schema:
+          type: string
+        required: true
+      tags:
+      - public
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VCSWebhook'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VCSWebhook'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VCSWebhook'
+          description: ''
+  /screenmgmt/vcs/github/{tenant}/:
+    post:
+      operationId: vcs_pull_github
+      description: This api is responsible to load client metadata from git to bot
+      parameters:
+      - in: path
+        name: tenant
+        schema:
+          type: string
+        required: true
+      tags:
+      - public
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VCSWebhook'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VCSWebhook'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VCSWebhook'
+          description: ''
+components:
+  schemas:
+    Component:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tenant:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+        data:
+          type: object
+          additionalProperties: {}
+      required:
+      - data
+      - id
+      - name
+      - tenant
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tenant:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+      required:
+      - id
+      - name
+      - tenant
+    PaginatedComponentList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+    PaginatedGroupList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+    PaginatedScreenList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Screen'
+    PatchedComponent:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tenant:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+        data:
+          type: object
+          additionalProperties: {}
+    PatchedGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tenant:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+    PatchedScreen:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tenant:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+        title:
+          type: string
+          nullable: true
+          maxLength: 100
+        link:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        data:
+          type: object
+          additionalProperties: {}
+        group:
+          type: integer
+    Screen:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tenant:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          maxLength: 100
+        title:
+          type: string
+          nullable: true
+          maxLength: 100
+        link:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        data:
+          type: object
+          additionalProperties: {}
+        group:
+          type: integer
+      required:
+      - data
+      - group
+      - id
+      - name
+      - tenant
+    VCSWebhook:
+      type: object
+      properties:
+        tenant:
+          type: string
+          maxLength: 50
+        repo_url:
+          type: string
+          format: uri
+        repo_branch:
+          type: string
+          maxLength: 50
+      required:
+      - repo_url
+      - tenant
